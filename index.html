@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>握拳出击 · 手势拳击</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<canvas id="game"></canvas>
+
+<!-- 顶栏 HUD -->
+<div class="hud">
+  <div class="hud-left">
+    <div class="hearts" id="hearts"></div>
+    <div class="label" id="labHp">生命</div>
+  </div>
+  <div class="hud-right">
+    <div class="score" id="score">0</div>
+    <div class="label" id="labKo">KO</div>
+  </div>
+</div>
+
+<div class="combo" id="combo"></div>
+
+<!-- 暂停按钮 -->
+<button class="pause-btn hidden" id="btnPause" aria-label="暂停">❚❚</button>
+
+<!-- 退出 / 暂停界面 -->
+<div class="overlay hidden" id="pause">
+  <div class="panel pause-panel">
+    <h2 id="pauseTitle">暂 停</h2>
+    <p class="sub" id="pauseSub">随时停下，调一调再上路</p>
+    <div class="menu-btns">
+      <button class="btn" id="btnResume">继 续</button>
+      <button class="btn ghost" id="btnPauseSettings">设 置</button>
+      <button class="btn ghost" id="btnQuit">退 出 本 局</button>
+    </div>
+    <p class="note" id="pauseNote">按 Esc 暂停 / 继续</p>
+  </div>
+</div>
+
+<!-- 摄像头预览 + 手势状态 -->
+<div class="cam hidden" id="camWrap">
+  <video id="cam" autoplay muted playsinline></video>
+  <div class="fist-dots">
+    <span class="dot" id="dotL">左</span>
+    <span class="dot" id="dotR">右</span>
+  </div>
+</div>
+
+<!-- 主菜单 -->
+<div class="overlay" id="menu">
+  <div class="panel">
+    <h1 id="mTitle">握拳出击</h1>
+    <p class="sub" id="mSub">用双手握拳挥向来敌，守住你的三颗心</p>
+    <ul class="rules" id="mRules">
+      <li><b>握拳挥出</b>即可出拳：左手打左来的敌人，右手打右来的敌人</li>
+      <li>敌人逼近到身前会打你一下，<b>被打三次即失败</b></li>
+      <li>来不及的话：键盘 <b>A / ←</b> 打左，<b>D / →</b> 打右</li>
+    </ul>
+    <div class="menu-btns">
+      <button class="btn" id="btnStart">开 始 游 戏</button>
+      <button class="btn ghost" id="btnSettings">设 置</button>
+    </div>
+    <p class="note" id="mNote">首次启动请允许摄像头权限 · 需要 http://localhost 访问</p>
+  </div>
+</div>
+
+<!-- 设置 -->
+<div class="overlay hidden" id="settings">
+  <div class="panel settings-panel">
+    <h2 id="sTitle">设 置</h2>
+
+    <div class="setting-row">
+      <div class="setting-label" id="sLangLabel">语言 / Language</div>
+      <div class="seg" id="langSeg">
+        <button class="seg-btn" data-lang="zh">中文</button>
+        <button class="seg-btn" data-lang="en">English</button>
+      </div>
+    </div>
+
+    <div class="setting-row">
+      <div class="setting-label">
+        <span id="sVolLabel">音量</span>
+        <span class="vol-val" id="sVolVal">70%</span>
+      </div>
+      <input type="range" id="volRange" min="0" max="100" step="1" value="70" />
+    </div>
+
+    <button class="btn ghost" id="btnBack">返 回</button>
+  </div>
+</div>
+
+<!-- 结算 -->
+<div class="overlay hidden" id="over">
+  <div class="panel">
+    <h1 class="lose" id="overTitle">被 打 倒 了</h1>
+    <p class="sub" id="overSub">击倒了 0 名敌人</p>
+    <button class="btn" id="btnAgain">再 来 一 局</button>
+  </div>
+</div>
+
+<div class="toast hidden" id="toast"></div>
+
+<script src="game.js"></script>
+</body>
+</html>
